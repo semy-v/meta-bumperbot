@@ -21,13 +21,8 @@ local_conf_header:
   bumperbot: |
     # Bumperbot ROS2 packages install
     IMAGE_INSTALL:append = " \
-        bumperbot-description \
-        bumperbot-firmware \
-        bumperbot-controller \
-        bumperbot-localization \
-        bumperbot-motion \
-        bumperbot-msgs \
         bumperbot-bringup \
+        bumperbot-systemd \
     "
 
   host_tools: |
