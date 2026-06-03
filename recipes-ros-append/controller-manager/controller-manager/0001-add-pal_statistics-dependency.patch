@@ -1,0 +1,46 @@
+From cfb0fb19520add5bb5146696add6b230486afef1 Mon Sep 17 00:00:00 2001
+From: Sergii Myronov <myronov.sergii@gmail.com>
+Date: Wed, 15 Apr 2026 15:52:49 +0000
+Subject: [PATCH] add pal_statistics dependency
+
+---
+ CMakeLists.txt | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9c3e21865..379e1a883 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -18,6 +18,7 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
+   rclcpp
+   realtime_tools
+   std_msgs
++  pal_statistics
+ )
+ 
+ find_package(ament_cmake REQUIRED)
+@@ -36,12 +37,13 @@ generate_parameter_library(controller_manager_parameters
+ add_library(controller_manager SHARED
+   src/controller_manager.cpp
+ )
++
+ target_compile_features(controller_manager PUBLIC cxx_std_17)
+ target_include_directories(controller_manager PUBLIC
+   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+   $<INSTALL_INTERFACE:include/controller_manager>
+ )
+-target_link_libraries(controller_manager PUBLIC
++target_link_libraries(controller_manager
+                       controller_manager_parameters
+                       controller_interface::controller_interface
+                       diagnostic_updater::diagnostic_updater
+@@ -55,6 +57,9 @@ target_link_libraries(controller_manager PUBLIC
+                       ${std_msgs_TARGETS}
+                       ${controller_manager_msgs_TARGETS})
+ 
++ament_target_dependencies(controller_manager
++  pal_statistics)
++
+ add_executable(ros2_control_node src/ros2_control_node.cpp)
+ target_link_libraries(ros2_control_node PRIVATE
+   controller_manager

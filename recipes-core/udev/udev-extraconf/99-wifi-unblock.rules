@@ -1,0 +1,1 @@
+SUBSYSTEM=="net", ACTION=="add", KERNEL=="wlan0", RUN+="/usr/sbin/rfkill unblock wifi"

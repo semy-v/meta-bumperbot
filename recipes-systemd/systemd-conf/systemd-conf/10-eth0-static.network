@@ -1,0 +1,8 @@
+[Match]
+Name=eth0
+
+[Network]
+Address=192.168.8.2/24
+LinkLocalAddressing=no
+IPv6AcceptRA=no
+DefaultRouteOnDevice=no

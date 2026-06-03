@@ -1,0 +1,11 @@
+[Match]
+Name=wlan0
+
+[Network]
+DHCP=yes
+DNS=8.8.8.8
+IgnoreCarrierLoss=3s
+
+[DHCPv4]
+RouteMetric=100
+UseRoutes=yes
