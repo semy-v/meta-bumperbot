@@ -1,0 +1,5 @@
+.vscode/
+build/
+meta-ros/
+layers/
+conf/site.conf
