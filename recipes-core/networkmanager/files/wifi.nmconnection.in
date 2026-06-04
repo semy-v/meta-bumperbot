@@ -1,17 +1,17 @@
 [connection]
-id=MyHomeWiFi
+id=@WIFI_ID@
 uuid=879a1ada-2f9e-11f1-8085-13eb0b9a54c2
 type=wifi
 interface-name=wlan0
 autoconnect=true
 
 [wifi]
-ssid=SpectrumSetup-CE
+ssid=@WIFI_SSID@
 cloned-mac-address=permanent
 
 [wifi-security]
 key-mgmt=wpa-psk
-psk=fullstory765
+psk=@WIFI_PSK@
 
 [ipv4]
 method=auto
