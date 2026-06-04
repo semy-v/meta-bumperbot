@@ -10,7 +10,6 @@ ssid=SpectrumSetup-CE
 cloned-mac-address=permanent
 
 [wifi-security]
-auth-alg=open
 key-mgmt=wpa-psk
 psk=fullstory765
 

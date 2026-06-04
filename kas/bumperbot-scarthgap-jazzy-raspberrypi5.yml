@@ -45,7 +45,13 @@ local_conf_header:
     IMAGE_INSTALL:append = " python3-smbus python3-pyserial"
 
   networking: |
-    IMAGE_INSTALL:append = " networkmanager linux-firmware-rpidistro-bcm43455"
+    IMAGE_INSTALL:append = " \
+      networkmanager \
+      networkmanager-wifi \
+      networkmanager-nmcli \
+      wpa-supplicant \
+      linux-firmware-rpidistro-bcm43455 \
+    "
     IMAGE_INSTALL:remove = " connman"
     SYSTEMD_AUTO_ENABLE:pn-networkmanager = "enable"
     SYSTEMD_AUTO_ENABLE:pn-systemd-resolved = "enable"
