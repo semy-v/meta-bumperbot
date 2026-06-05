@@ -8,7 +8,7 @@ inherit ros_distro_jazzy
 # Force export ROS_DISTRO to the shell to satisfy IDL generator
 export ROS_DISTRO := "${ROS_DISTRO}"
 
-SRC_URI = "git://github.com/semy-v/bumperbot-ros2-core;protocol=https;branch=dev"
+SRC_URI = "git://github.com/semy-v/bumperbot-ros2-core;protocol=https;branch=main"
 SRCREV = "${AUTOREV}"
 
 S = "${WORKDIR}/git/bumperbot_msgs"
