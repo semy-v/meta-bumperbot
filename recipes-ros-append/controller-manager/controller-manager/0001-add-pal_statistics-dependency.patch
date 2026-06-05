@@ -1,8 +1,3 @@
-From cfb0fb19520add5bb5146696add6b230486afef1 Mon Sep 17 00:00:00 2001
-From: Sergii Myronov <myronov.sergii@gmail.com>
-Date: Wed, 15 Apr 2026 15:52:49 +0000
-Subject: [PATCH] add pal_statistics dependency
-
 ---
  CMakeLists.txt | 7 ++++++-
  1 file changed, 6 insertions(+), 1 deletion(-)
