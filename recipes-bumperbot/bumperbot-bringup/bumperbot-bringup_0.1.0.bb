@@ -1,7 +1,7 @@
-SUMMARY = "Bumperbot firmware ROS2 package"
-DESCRIPTION = "ROS2 description of a Bumperbot"
-LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE.MIT;md5=030cb33d2af49ccebca74d0588b84a21"
+SUMMARY = "Bumperbot bringup ROS2 package"
+DESCRIPTION = "${SUMMARY}"
+LICENSE = "Apache-2.0"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 inherit ros_distro_jazzy
 
@@ -9,7 +9,7 @@ inherit ros_distro_jazzy
 SRC_URI = "git://github.com/semy-v/bumperbot-ros2-core;protocol=https;branch=dev"
 SRCREV = "${AUTOREV}"
 
-S = "${WORKDIR}/git/src/bumperbot_bringup"
+S = "${WORKDIR}/git/bumperbot_bringup"
 
 # -------------------------
 # Dependencies (from package.xml + CMakeLists.txt)

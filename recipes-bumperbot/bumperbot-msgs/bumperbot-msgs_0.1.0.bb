@@ -1,7 +1,7 @@
-SUMMARY = "Bumperbot custom ROS2 messages"
-DESCRIPTION = "Generation of custom bumperbot messages"
-LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE.MIT;md5=030cb33d2af49ccebca74d0588b84a21"
+SUMMARY = "Bumperbot custom messages ROS2 package"
+DESCRIPTION = "${SUMMARY}"
+LICENSE = "Apache-2.0"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 inherit ros_distro_jazzy
 
@@ -11,7 +11,7 @@ export ROS_DISTRO := "${ROS_DISTRO}"
 SRC_URI = "git://github.com/semy-v/bumperbot-ros2-core;protocol=https;branch=dev"
 SRCREV = "${AUTOREV}"
 
-S = "${WORKDIR}/git/src/bumperbot_msgs"
+S = "${WORKDIR}/git/bumperbot_msgs"
 
 # -------------------------
 # Dependencies (from package.xml + CMakeLists.txt)

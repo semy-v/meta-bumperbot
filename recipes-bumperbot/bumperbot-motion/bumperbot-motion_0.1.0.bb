@@ -1,7 +1,7 @@
-SUMMARY = "Bumperbot motion ROS2 package"
-DESCRIPTION = "Bumperbot motion planner action server"
-LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE.MIT;md5=030cb33d2af49ccebca74d0588b84a21"
+SUMMARY = "Bumperbot motion planner ROS2 package"
+DESCRIPTION = "${SUMMARY}"
+LICENSE = "Apache-2.0"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
 inherit ros_distro_jazzy
 inherit ros_component
@@ -9,7 +9,7 @@ inherit ros_component
 SRC_URI = "git://github.com/semy-v/bumperbot-ros2-core;protocol=https;branch=dev"
 SRCREV = "${AUTOREV}"
 
-S = "${WORKDIR}/git/src/bumperbot_motion"
+S = "${WORKDIR}/git/bumperbot_motion"
 
 # -------------------------
 # Dependencies (from package.xml + CMakeLists.txt)
