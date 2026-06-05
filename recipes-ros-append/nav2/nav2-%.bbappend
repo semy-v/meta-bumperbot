@@ -1,0 +1,1 @@
+TARGET_CPPFLAGS:append = " -Wno-error=shadow -Wno-error=non-virtual-dtor"

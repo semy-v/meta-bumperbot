@@ -1,0 +1,17 @@
+---
+ src/libserial/SerialPortConstants.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/libserial/SerialPortConstants.h b/src/libserial/SerialPortConstants.h
+index 4f05bd5..253bc30 100644
+--- a/src/libserial/SerialPortConstants.h
++++ b/src/libserial/SerialPortConstants.h
+@@ -38,6 +38,8 @@
+ #include <string>
+ #include <termios.h>
+ #include <vector>
++#include <cstdint>
++
+ 
+ namespace LibSerial
+ {

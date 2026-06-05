@@ -1,0 +1,6 @@
+.vscode/
+build/
+meta-ros/
+layers/
+conf/site.conf
+private-config.yml

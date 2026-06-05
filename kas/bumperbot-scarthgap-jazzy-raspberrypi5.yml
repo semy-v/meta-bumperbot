@@ -1,0 +1,82 @@
+header:
+  version: 14
+  includes:
+    - repo: meta-ros
+      file: kas/oeros-scarthgap-jazzy-raspberrypi5.yml
+
+repos:
+  meta-bumperbot:
+    path: .
+
+  meta-ros:
+    url: "https://github.com/ros/meta-ros.git"
+    branch: build
+    layers:
+      .: "disabled"
+
+target:
+  - ros-image-core
+
+local_conf_header:
+  bumperbot: |
+    # Bumperbot ROS2 packages install
+    IMAGE_INSTALL:append = " \
+        bumperbot-bringup \
+        bumperbot-systemd \
+    "
+
+  host_tools: |
+    ASSUME_PROVIDED += "git-native"
+    PREFERRED_PROVIDER_git-native = "git-native"
+    HOSTTOOLS += "git"
+    HOSTTOOLS:remove = "gfortran"
+
+  serial: |
+    ENABLE_UART = "1"
+    SERIAL_CONSOLES = "115200;ttyAMA0"
+    LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
+    ENABLE_I2C = "1"
+
+    # Autoload the i2c-dev module so /dev/i2c-X appears on boot
+    KERNEL_MODULE_AUTOLOAD += "i2c-dev"
+
+    # Add user-space tools (i2cdetect, i2cget, etc.)
+    IMAGE_INSTALL:append = " i2c-tools"  
+    IMAGE_INSTALL:append = " python3-smbus python3-pyserial"
+
+  networking: |
+    IMAGE_INSTALL:append = " \
+      networkmanager \
+      networkmanager-wifi \
+      networkmanager-nmcli \
+      wpa-supplicant \
+      linux-firmware-rpidistro-bcm43455 \
+    "
+    IMAGE_INSTALL:remove = " connman"
+    SYSTEMD_AUTO_ENABLE:pn-networkmanager = "enable"
+    SYSTEMD_AUTO_ENABLE:pn-systemd-resolved = "enable"
+
+  wlan: |
+    # Enable WiFi support at the distribution level
+    DISTRO_FEATURES:append = " wifi"
+
+    # Enable wpa-supplicant for automatic connection to WiFi network
+    IMAGE_INSTALL:append = " wpa-wifi"
+
+  bluetooth: |
+    # Enable Bluetooth support at the distribution level
+    DISTRO_FEATURES:append = " bluetooth"
+
+    # bluez5: Provides the core Bluetooth stack and bluetoothctl
+    # pi-bluetooth: Sets up the hciattach/hciuart service required for Raspberry Pi's onboard BT chip
+    IMAGE_INSTALL:append = " bluez5 pi-bluetooth"
+
+    # Ensure the Bluetooth daemon starts automatically on boot
+    SYSTEMD_AUTO_ENABLE:pn-bluez5 = "enable"
+
+  ssh: |
+    # Adds the SSH server to the image
+    EXTRA_IMAGE_FEATURES += "ssh-server-openssh"
+
+    # Allow root login without a password (for development only)
+    EXTRA_IMAGE_FEATURES += "debug-tweaks"

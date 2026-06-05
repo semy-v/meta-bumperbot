@@ -1,0 +1,187 @@
+---
+ include/{pal_statistics => }/pal_statistics.hpp         | 2 +-
+ include/{pal_statistics => }/pal_statistics_macros.hpp  | 4 ++--
+ include/{pal_statistics => }/pal_statistics_utils.hpp   | 2 +-
+ include/{pal_statistics => }/registration_utils.hpp     | 2 +-
+ include/{pal_statistics => }/static_circular_buffer.hpp | 0
+ src/pal_statistics.cpp                                  | 4 ++--
+ src/pal_statistics_macros.cpp                           | 2 +-
+ src/pal_statistics_utils.cpp                            | 4 ++--
+ src/registration_list.hpp                               | 2 +-
+ test/gtest_buffer.cpp                                   | 2 +-
+ test/gtest_pal_statistics.cpp                           | 4 ++--
+ 11 files changed, 14 insertions(+), 14 deletions(-)
+ rename include/{pal_statistics => }/pal_statistics.hpp (99%)
+ rename include/{pal_statistics => }/pal_statistics_macros.hpp (99%)
+ rename include/{pal_statistics => }/pal_statistics_utils.hpp (98%)
+ rename include/{pal_statistics => }/registration_utils.hpp (98%)
+ rename include/{pal_statistics => }/static_circular_buffer.hpp (100%)
+
+diff --git a/include/pal_statistics/pal_statistics.hpp b/include/pal_statistics.hpp
+similarity index 99%
+rename from include/pal_statistics/pal_statistics.hpp
+rename to include/pal_statistics.hpp
+index 38c3eb1..8f23c2d 100644
+--- a/include/pal_statistics/pal_statistics.hpp
++++ b/include/pal_statistics.hpp
+@@ -35,7 +35,7 @@
+ #include <limits>
+ #include <string>
+ 
+-#include "pal_statistics/pal_statistics_utils.hpp"
++#include "pal_statistics_utils.hpp"
+ 
+ #include "pal_statistics_msgs/msg/statistics.hpp"
+ #include "pal_statistics_msgs/msg/statistics_names.hpp"
+diff --git a/include/pal_statistics/pal_statistics_macros.hpp b/include/pal_statistics_macros.hpp
+similarity index 99%
+rename from include/pal_statistics/pal_statistics_macros.hpp
+rename to include/pal_statistics_macros.hpp
+index 0e08696..9fdeef9 100644
+--- a/include/pal_statistics/pal_statistics_macros.hpp
++++ b/include/pal_statistics_macros.hpp
+@@ -33,8 +33,8 @@
+ #include <memory>
+ #include <string>
+ 
+-#include "pal_statistics/pal_statistics.hpp"
+-#include "pal_statistics/registration_utils.hpp"
++#include "pal_statistics.hpp"
++#include "registration_utils.hpp"
+ 
+ constexpr char DEFAULT_STATISTICS_TOPIC[] = "pal_statistics";
+ 
+diff --git a/include/pal_statistics/pal_statistics_utils.hpp b/include/pal_statistics_utils.hpp
+similarity index 98%
+rename from include/pal_statistics/pal_statistics_utils.hpp
+rename to include/pal_statistics_utils.hpp
+index ce8d69c..0b39008 100644
+--- a/include/pal_statistics/pal_statistics_utils.hpp
++++ b/include/pal_statistics_utils.hpp
+@@ -41,7 +41,7 @@
+ #include "pal_statistics_msgs/msg/statistics.hpp"
+ #include "pal_statistics_msgs/msg/statistics_names.hpp"
+ #include "pal_statistics_msgs/msg/statistics_values.hpp"
+-#include "pal_statistics/static_circular_buffer.hpp"
++#include "static_circular_buffer.hpp"
+ #include "rclcpp/rclcpp.hpp"
+ 
+ 
+diff --git a/include/pal_statistics/registration_utils.hpp b/include/registration_utils.hpp
+similarity index 98%
+rename from include/pal_statistics/registration_utils.hpp
+rename to include/registration_utils.hpp
+index 1dd755d..eaebe7a 100644
+--- a/include/pal_statistics/registration_utils.hpp
++++ b/include/registration_utils.hpp
+@@ -32,7 +32,7 @@
+ 
+ #include <string>
+ 
+-#include "pal_statistics/pal_statistics.hpp"
++#include "pal_statistics.hpp"
+ 
+ namespace pal_statistics
+ {
+diff --git a/include/pal_statistics/static_circular_buffer.hpp b/include/static_circular_buffer.hpp
+similarity index 100%
+rename from include/pal_statistics/static_circular_buffer.hpp
+rename to include/static_circular_buffer.hpp
+diff --git a/src/pal_statistics.cpp b/src/pal_statistics.cpp
+index 03a4037..435ca65 100644
+--- a/src/pal_statistics.cpp
++++ b/src/pal_statistics.cpp
+@@ -27,7 +27,7 @@
+ // POSSIBILITY OF SUCH DAMAGE.
+ 
+ 
+-#include "pal_statistics/pal_statistics.hpp"
++#include "pal_statistics.hpp"
+ 
+ #include <memory>
+ #include <string>
+@@ -35,7 +35,7 @@
+ 
+ #include "lock_free_queue.hpp"
+ #include "registration_list.hpp"
+-#include "pal_statistics/registration_utils.hpp"
++#include "registration_utils.hpp"
+ 
+ #include "rclcpp/create_publisher.hpp"
+ 
+diff --git a/src/pal_statistics_macros.cpp b/src/pal_statistics_macros.cpp
+index df87717..e336997 100644
+--- a/src/pal_statistics_macros.cpp
++++ b/src/pal_statistics_macros.cpp
+@@ -27,7 +27,7 @@
+ // POSSIBILITY OF SUCH DAMAGE.
+ 
+ 
+-#include "pal_statistics/pal_statistics_macros.hpp"
++#include "pal_statistics_macros.hpp"
+ 
+ #include <map>
+ #include <memory>
+diff --git a/src/pal_statistics_utils.cpp b/src/pal_statistics_utils.cpp
+index 6abd255..218be42 100644
+--- a/src/pal_statistics_utils.cpp
++++ b/src/pal_statistics_utils.cpp
+@@ -27,7 +27,7 @@
+ // POSSIBILITY OF SUCH DAMAGE.
+ 
+ 
+-#include "pal_statistics/pal_statistics_utils.hpp"
++#include "pal_statistics_utils.hpp"
+ 
+ #include <map>
+ #include <memory>
+@@ -35,7 +35,7 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include "pal_statistics/pal_statistics.hpp"
++#include "pal_statistics.hpp"
+ 
+ namespace pal_statistics
+ {
+diff --git a/src/registration_list.hpp b/src/registration_list.hpp
+index 8f1e211..b749865 100644
+--- a/src/registration_list.hpp
++++ b/src/registration_list.hpp
+@@ -38,7 +38,7 @@
+ #include "boost/bimap.hpp"
+ #include "boost/bimap/multiset_of.hpp"
+ #include "boost/bimap/set_of.hpp"
+-#include "pal_statistics/pal_statistics_utils.hpp"
++#include "pal_statistics_utils.hpp"
+ 
+ namespace pal_statistics
+ {
+diff --git a/test/gtest_buffer.cpp b/test/gtest_buffer.cpp
+index c3d030f..49a76d6 100644
+--- a/test/gtest_buffer.cpp
++++ b/test/gtest_buffer.cpp
+@@ -34,7 +34,7 @@
+ 
+ #include "boost/circular_buffer.hpp"
+ #include "gtest/gtest.h"
+-#include "pal_statistics/static_circular_buffer.hpp"
++#include "static_circular_buffer.hpp"
+ 
+ template<class T>
+ class MyAlloc
+diff --git a/test/gtest_pal_statistics.cpp b/test/gtest_pal_statistics.cpp
+index d65266b..f524697 100644
+--- a/test/gtest_pal_statistics.cpp
++++ b/test/gtest_pal_statistics.cpp
+@@ -35,8 +35,8 @@
+ #include <string>
+ #include <vector>
+ 
+-#include <pal_statistics/pal_statistics_macros.hpp>
+-#include <pal_statistics/pal_statistics.hpp>
++#include <pal_statistics_macros.hpp>
++#include <pal_statistics.hpp>
+ #include <registration_list.hpp>  // from src directory
+ 
+ using ::testing::Value;
