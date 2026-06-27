@@ -1,7 +1,7 @@
 [Unit]
 Description=IMU node service of bumperbot
 PartOf=bumperbot.target
-After=network.target controller_manager.service
+After=network-online.target controller_manager.service
 Requires=controller_manager.service
 StartLimitIntervalSec=20
 StartLimitBurst=3
@@ -17,4 +17,4 @@ Restart=on-failure
 RestartSec=5s
 
 [Install]
-RequiredBy=bumperbot.target
+WantedBy=bumperbot.target

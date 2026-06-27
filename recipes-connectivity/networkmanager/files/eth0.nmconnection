@@ -1,0 +1,13 @@
+[connection]
+id=eth0-static
+type=ethernet
+interface-name=eth0
+autoconnect=true
+
+[ipv4]
+method=manual
+address1=192.168.8.2/24
+may-fail=true
+
+[ipv6]
+method=disabled

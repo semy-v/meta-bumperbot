@@ -1,9 +1,9 @@
 [Unit]
 Description=ROS2 controller manager with loaded bumperbot hardware interfaces
 PartOf=bumperbot.target
-After=dev-ttyACM0.device network.target robot_state_publisher.service
-BindsTo=dev-ttyACM0.device
-Requires=robot_state_publisher.service
+Wants=network-online.target
+Requires=dev-ttyACM0.device robot_state_publisher.service
+After=dev-ttyACM0.device network-online.target robot_state_publisher.service
 StartLimitIntervalSec=20
 StartLimitBurst=3
 

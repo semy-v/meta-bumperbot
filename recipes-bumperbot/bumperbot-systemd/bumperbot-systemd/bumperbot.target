@@ -1,7 +1,7 @@
 [Unit]
 Description=Bumperbot ROS 2 Stack Target
-Requires=multi-user.target
-After=network.target
+Wants=network-online.target
+After=network-online.target
 
 [Install]
 WantedBy=multi-user.target

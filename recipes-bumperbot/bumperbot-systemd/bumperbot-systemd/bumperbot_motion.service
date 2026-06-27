@@ -17,4 +17,4 @@ Restart=on-failure
 RestartSec=5s
 
 [Install]
-RequiredBy=bumperbot.target
+WantedBy=bumperbot.target

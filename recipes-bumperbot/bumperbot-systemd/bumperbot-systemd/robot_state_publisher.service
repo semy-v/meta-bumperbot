@@ -1,7 +1,8 @@
 [Unit]
 Description=ROS2 state publisher service of bumperbot description
 PartOf=bumperbot.target
-After=network.target
+Wants=network-online.target
+After=network-online.target
 StartLimitIntervalSec=20
 StartLimitBurst=3
 

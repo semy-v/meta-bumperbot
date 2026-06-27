@@ -1,7 +1,7 @@
 [Unit]
 Description=ROS2 bumperbot diff drive controller
 PartOf=bumperbot.target
-After=network.target controller_manager.service
+After=network-online.target controller_manager.service
 BindsTo=controller_manager.service
 
 [Service]

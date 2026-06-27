@@ -1,7 +1,7 @@
 [Unit]
 Description=ROS2 bumperbot diff drive controller
 PartOf=bumperbot.target
-After=network.target controller_manager.service
+After=network-online.target controller_manager.service
 BindsTo=controller_manager.service
 
 [Service]
@@ -17,4 +17,4 @@ TimeoutStartSec=15
 TimeoutStopSec=15
 
 [Install]
-RequiredBy=bumperbot.target
+WantedBy=bumperbot.target

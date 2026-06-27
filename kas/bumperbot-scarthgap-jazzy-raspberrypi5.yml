@@ -53,15 +53,16 @@ local_conf_header:
       linux-firmware-rpidistro-bcm43455 \
     "
     IMAGE_INSTALL:remove = " connman"
+    PACKAGECONFIG:remove:pn-systemd = "networkd"
+
     SYSTEMD_AUTO_ENABLE:pn-networkmanager = "enable"
     SYSTEMD_AUTO_ENABLE:pn-systemd-resolved = "enable"
 
-  wlan: |
     # Enable WiFi support at the distribution level
     DISTRO_FEATURES:append = " wifi"
 
-    # Enable wpa-supplicant for automatic connection to WiFi network
-    IMAGE_INSTALL:append = " wpa-wifi"
+    # Install custom network manager profiles
+    IMAGE_INSTALL:append = " network-profiles"
 
   bluetooth: |
     # Enable Bluetooth support at the distribution level
