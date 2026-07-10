@@ -26,6 +26,7 @@ ROS_EXEC_DEPENDS = " \
     controller-manager \
     diff-drive-controller \
     joint-state-broadcaster \
+    imu-sensor-broadcaster \
     tf-transformations \
     joy \
     joy-teleop \

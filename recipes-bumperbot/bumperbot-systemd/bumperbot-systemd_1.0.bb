@@ -11,7 +11,7 @@ SRC_URI = " \
     file://bumperbot_localization.service \
     file://joint_state_broadcaster.service \
     file://diff_drive_controller.service \
-    file://imu.service \
+    file://imu_sensor_broadcaster.service \
     file://controller_manager.service \
     file://robot_state_publisher.service \
 "
@@ -27,7 +27,7 @@ SYSTEMD_SERVICE:${PN} = " \
     bumperbot_localization.service \
     joint_state_broadcaster.service \
     diff_drive_controller.service \
-    imu.service \
+    imu_sensor_broadcaster.service \
     controller_manager.service \
     robot_state_publisher.service \
 "
