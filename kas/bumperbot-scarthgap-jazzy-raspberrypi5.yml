@@ -33,15 +33,7 @@ local_conf_header:
 
   serial: |
     ENABLE_UART = "1"
-    SERIAL_CONSOLES = "115200;ttyAMA0"
     LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
-    ENABLE_I2C = "1"
-
-    # Autoload the i2c-dev module so /dev/i2c-X appears on boot
-    KERNEL_MODULE_AUTOLOAD += "i2c-dev"
-
-    # Add user-space tools (i2cdetect, i2cget, etc.)
-    IMAGE_INSTALL:append = " i2c-tools"  
     IMAGE_INSTALL:append = " python3-smbus python3-pyserial"
 
   networking: |

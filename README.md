@@ -12,8 +12,8 @@ The primary goal of `meta-bumperbot` is to bridge the gap between high-level ROS
 
 Key functionality provided by this layer includes:
 * **ROS 2 Jazzy Cross-Compilation:** Automatically fetches, cross-compiles, and bakes the custom nodes from the `bumperbot-ros2-core` repository.
-* **Hardware Enablement:** Configures the Raspberry Pi 5 device tree, enables UART for serial communication with the Arduino, and autoloads `i2c-dev` for the IMU.
-* **Headless Connectivity:** Integrates NetworkManager and BlueZ 5, provisioning secure, automatic Wi-Fi and Bluetooth connections on boot.
+* **Hardware Enablement:** Configures the Raspberry Pi 5 device tree, enables UART for serial communication with the Arduino.
+* **Headless Connectivity:** Integrates NetworkManager and BlueZ 5, provisioning secure, automatic Wi-Fi connection on boot.
 * **Autonomous Bringup:** Deploys a customized systemd target (`bumperbot.target`) and associated service files. The robot's controllers, kinematics, and localization nodes automatically spin up in the background upon boot—no SSH intervention required.
 * **System Patches:** Applies necessary source patches to upstream ROS 2 packages (e.g., `controller-manager`, `pal-statistics`) to resolve cross-compilation errors and dependency mismatches.
 
