@@ -30,6 +30,7 @@ ROS_BUILD_DEPENDS = " \
     tf2-ros \
     tf2-geometry-msgs \
     pluginlib \
+    bumperbot-msgs \
 "
 
 ROS_EXEC_DEPENDS = " \

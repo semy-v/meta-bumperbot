@@ -22,6 +22,8 @@ ROS_BUILD_DEPENDS = " \
     rosidl-default-generators-native \
     rosidl-default-generators \
     rosidl-default-runtime \
+    action-msgs \
+    geometry-msgs \
 "
 
 # Run-time dependencies mapping to message usage
