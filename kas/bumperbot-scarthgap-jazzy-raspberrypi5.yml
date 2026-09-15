@@ -23,6 +23,7 @@ local_conf_header:
     IMAGE_INSTALL:append = " \
         bumperbot-bringup \
         bumperbot-systemd \
+        bluetooth-joy-teleop-systemd \
     "
 
   host_tools: |

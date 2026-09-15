@@ -1,0 +1,20 @@
+[Unit]
+Description=ROS2 joystick teleoperation
+PartOf=bluetooth_joy_teleop.target
+Requires=bluetooth_joy_connect.service
+After=bluetooth_joy_connect.service
+StartLimitIntervalSec=20
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=root
+Group=root
+EnvironmentFile=-/run/joyteleop.env
+ExecStartPre=/opt/joyteleop/joy_env_setup.sh
+ExecStart=/opt/ros/jazzy/bin/ros2 launch bumperbot_controller joystick_teleop.launch.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+RequiredBy=bluetooth_joy_teleop.target
