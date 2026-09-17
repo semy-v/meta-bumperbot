@@ -1,0 +1,15 @@
+[Unit]
+Description=Bluethoth joystick teleoperation switch on/off service button
+StartLimitIntervalSec=20
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -u /opt/joyteleop/joy_teleop_button.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

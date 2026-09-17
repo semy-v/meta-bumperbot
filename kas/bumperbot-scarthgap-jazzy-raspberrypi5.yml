@@ -19,7 +19,6 @@ target:
 
 local_conf_header:
   bumperbot: |
-    # Bumperbot ROS2 packages install
     IMAGE_INSTALL:append = " \
         bumperbot-bringup \
         bumperbot-systemd \
@@ -74,3 +73,7 @@ local_conf_header:
 
     # Allow root login without a password (for development only)
     EXTRA_IMAGE_FEATURES += "debug-tweaks"
+
+  gpio: |
+    # Adds GPIO debug tools to the image
+    IMAGE_INSTALL:append = "libgpiod libgpiod-tools"
