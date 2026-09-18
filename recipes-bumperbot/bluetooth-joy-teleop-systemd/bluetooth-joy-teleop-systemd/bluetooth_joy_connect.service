@@ -1,6 +1,8 @@
 [Unit]
 Description=Bluetooth joystick connection service 
 PartOf=bluetooth_joy_teleop.target
+Requires=bluetooth-radio.service
+After=bluetooth-radio.service
 
 [Service]
 Type=oneshot

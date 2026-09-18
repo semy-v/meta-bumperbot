@@ -23,6 +23,7 @@ local_conf_header:
         bumperbot-bringup \
         bumperbot-systemd \
         bluetooth-joy-teleop-systemd \
+        bluetooth-radio-control \
     "
 
   host_tools: |
@@ -57,15 +58,21 @@ local_conf_header:
     IMAGE_INSTALL:append = " network-profiles"
 
   bluetooth: |
-    # Enable Bluetooth support at the distribution level
+    # Enable Bluetooth support at the distribution level, but do not start at boot
     DISTRO_FEATURES:append = " bluetooth"
 
     # bluez5: Provides the core Bluetooth stack and bluetoothctl
     # pi-bluetooth: Sets up the hciattach/hciuart service required for Raspberry Pi's onboard BT chip
-    IMAGE_INSTALL:append = " bluez5 pi-bluetooth"
+    # rfkill: block/unblock wireless devices
+    IMAGE_INSTALL:append = " \
+      bluez5 \
+      pi-bluetooth \
+      rfkill \
+    "
 
-    # Ensure the Bluetooth daemon starts automatically on boot
-    SYSTEMD_AUTO_ENABLE:pn-bluez5 = "enable"
+    # Do not start bluetooth services services on boot
+    SYSTEMD_AUTO_ENABLE:pn-bluez5 = "disable"
+    SYSTEMD_AUTO_ENABLE:pn-pi-bluetooth = "disable"
 
   ssh: |
     # Adds the SSH server to the image
