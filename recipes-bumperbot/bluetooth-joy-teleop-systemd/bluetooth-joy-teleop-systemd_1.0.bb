@@ -10,6 +10,7 @@ SRC_URI = " \
     file://bluetooth_joy_connect.service \
     file://joy_teleop_button.service \
     file://joy_teleop.service \
+    file://bluetooth_joy_teleop_failure.service \
     file://joy_disconnect.sh \
     file://joy_connect.sh \
     file://joy_env_setup.sh \
@@ -27,6 +28,7 @@ SYSTEMD_AUTO_ENABLE:${PN}-enable = "enable"
 SYSTEMD_SERVICE:${PN}-disable = " \
     bluetooth_joy_connect.service \
     joy_teleop.service \
+    bluetooth_joy_teleop_failure.service \
     bluetooth_joy_teleop.target \
 "
 SYSTEMD_AUTO_ENABLE:${PN}-disable = "disable"
@@ -59,6 +61,7 @@ FILES:${PN}-enable = "${systemd_system_unitdir}/joy_teleop_button.service"
 FILES:${PN}-disable = " \
     ${systemd_system_unitdir}/bluetooth_joy_connect.service \
     ${systemd_system_unitdir}/joy_teleop.service \
+    ${systemd_system_unitdir}/bluetooth_joy_teleop_failure.service \
     ${systemd_system_unitdir}/bluetooth_joy_teleop.target \
 "
 

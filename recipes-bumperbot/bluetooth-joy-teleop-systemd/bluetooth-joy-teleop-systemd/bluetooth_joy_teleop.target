@@ -1,10 +1,11 @@
 [Unit]
 Description=Bumperbot teleoperation via bluetooth joystick
+OnFailure=bluetooth_joy_teleop_failure.service
 Requires=bumperbot.target
-Requires=joy_teleop.service
+BindsTo=bluetooth-radio.service bluetooth_joy_connect.service joy_teleop.service
 
 After=bumperbot.target
-After=joy_teleop.service
+After=bluetooth-radio.service bluetooth_joy_connect.service joy_teleop.service
 
 [Install]
 WantedBy=multi-user.target
