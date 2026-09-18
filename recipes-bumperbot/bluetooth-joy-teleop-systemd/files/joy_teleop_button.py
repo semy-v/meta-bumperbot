@@ -1,10 +1,11 @@
 #! /usr/bin/env python3
 
-from gpiozero import Button
+from gpiozero import Button, PWMLED
 from signal import pause
 from enum import Enum, auto
 import subprocess
 import threading
+import time
 import sys
 
 
@@ -19,6 +20,7 @@ class TeleopController:
     def __init__(self, unit: str):
         self.unit = unit
         self.state = TargetState.STOPPED
+        self.led = PWMLED(18)
         self.lock = threading.Lock()
         self.active_process = None
         self.monitor_thread = None
@@ -34,6 +36,7 @@ class TeleopController:
                 case TargetState.STOPPED | TargetState.STOPPING:
                     action = "start"
                     self.state = TargetState.STARTING
+                    self.led.pulse()
                 case TargetState.STARTED | TargetState.STARTING:
                     action = "stop"
                     self.state = TargetState.STOPPING
@@ -78,9 +81,16 @@ class TeleopController:
                 print(
                     f"{action} unit failed with error: {stderr.strip()}",
                     file=sys.stderr,
-                    flush=True
+                    flush=True,
                 )
                 self.state = TargetState.STOPPED
+
+            if self.state is TargetState.STARTED:
+                self.led.on()
+            else:
+                self.led.off()
+                time.sleep(0.2)
+                self.led.blink(on_time=0.2, off_time=0.2, n=2)
 
             print(f"transitioned to '{self.state.name}'", flush=True)
             self.active_process = None
