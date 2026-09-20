@@ -35,7 +35,7 @@ local_conf_header:
   serial: |
     ENABLE_UART = "1"
     LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
-    IMAGE_INSTALL:append = " python3-smbus python3-pyserial"
+    IMAGE_INSTALL:append = " python3-pyserial"
 
   networking: |
     IMAGE_INSTALL:append = " \
@@ -82,5 +82,5 @@ local_conf_header:
     EXTRA_IMAGE_FEATURES += "debug-tweaks"
 
   gpio: |
-    # Adds GPIO debug tools to the image
+    # Adds GPIO debug tools to the image (for development only)
     IMAGE_INSTALL:append = "libgpiod libgpiod-tools"
