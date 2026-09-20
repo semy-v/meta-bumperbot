@@ -7,7 +7,7 @@ StartLimitBurst=3
 Type=simple
 User=root
 Group=root
-ExecStart=/usr/bin/python3 -u /opt/joyteleop/joy_teleop_button.py
+ExecStart=/usr/bin/python3 -u /usr/libexec/joyteleop/joy_teleop_button.py
 Restart=on-failure
 RestartSec=5s
 

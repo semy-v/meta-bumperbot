@@ -4,7 +4,6 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE.MIT;md5=030cb33d2af49ccebca74d058
 
 inherit systemd
 
-# Provide the files natively in the meta-layer under a /files/ directory
 SRC_URI = " \
     file://bluetooth_joy_teleop.target \
     file://bluetooth_joy_connect.service \
@@ -44,16 +43,16 @@ RDEPENDS:${PN} += " \
     python3-lgpio \
 "
 
-joyteleop_dir = "/opt/joyteleop"
+JOYTELEOP_DIR = "${libexecdir}/joyteleop"
 
 do_install() {
     install -d ${D}${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/bluetooth_joy_teleop.target ${D}${systemd_system_unitdir}/
     install -m 0644 ${WORKDIR}/*.service ${D}${systemd_system_unitdir}/
 
-    install -d ${D}${joyteleop_dir}
-    install -m 0744 ${WORKDIR}/*.sh ${D}${joyteleop_dir}/
-    install -m 0744 ${WORKDIR}/*.py ${D}${joyteleop_dir}/
+    install -d ${D}${JOYTELEOP_DIR}
+    install -m 0755 ${WORKDIR}/*.sh ${D}${JOYTELEOP_DIR}/
+    install -m 0755 ${WORKDIR}/*.py ${D}${JOYTELEOP_DIR}/
 }
 
 # Assign specific unit files to their respective sub-packages
@@ -65,4 +64,4 @@ FILES:${PN}-disable = " \
     ${systemd_system_unitdir}/bluetooth_joy_teleop.target \
 "
 
-FILES:${PN} += "${joyteleop_dir}"
+FILES:${PN} += "${JOYTELEOP_DIR}"
