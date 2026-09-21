@@ -1,0 +1,20 @@
+[Unit]
+Description=Bluetooth joystick connection service 
+PartOf=bluetooth_joy_teleop.target
+Requires=bluetooth-radio.service
+After=bluetooth-radio.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=root
+Group=root
+EnvironmentFile=-/run/joyteleop.env
+ExecStartPre=/usr/libexec/joyteleop/joy_env_setup.sh
+ExecStart=/usr/libexec/joyteleop/joy_connect.sh
+ExecStop=/usr/libexec/joyteleop/joy_disconnect.sh
+TimeoutStartSec=60
+TimeoutStopSec=15
+
+[Install]
+RequiredBy=bluetooth_joy_teleop.target

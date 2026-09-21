@@ -1,7 +1,8 @@
 SUMMARY = "Disable automatic power-on for Bluetooth adapter to save power"
 
 do_install:append() {
-    install -d ${D}${sysconfdir}/bluetooth
+    install -d -m 0555 ${D}${sysconfdir}/bluetooth
+
     if [ -f ${D}${sysconfdir}/bluetooth/main.conf ]; then
         sed -i 's/^#*AutoEnable.*$/AutoEnable=false/' ${D}${sysconfdir}/bluetooth/main.conf
     else

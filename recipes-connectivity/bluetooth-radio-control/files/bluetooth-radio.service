@@ -1,0 +1,13 @@
+[Unit]
+Description=BumperBot Bluetooth radio controller
+PartOf=bluetooth_joy_teleop.target
+After=systemd-udev-trigger.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+ExecStart=/usr/sbin/bumperbot-bluetooth.sh start
+ExecStop=/usr/sbin/bumperbot-bluetooth.sh stop
+
+# This service is deliberately NOT enabled at boot.

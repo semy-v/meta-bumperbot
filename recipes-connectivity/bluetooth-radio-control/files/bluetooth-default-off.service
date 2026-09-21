@@ -1,0 +1,11 @@
+[Unit]
+Description=BumperBot Bluetooth default-off policy
+Before=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/bumperbot-bluetooth.sh stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

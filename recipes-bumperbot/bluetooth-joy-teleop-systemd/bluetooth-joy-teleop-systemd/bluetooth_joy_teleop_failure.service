@@ -1,0 +1,8 @@
+[Unit]
+Description=Explicitly stop bluetooth_joy_teleop.target on dependend service failure
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+# Explicitly stop the target and all its grouped components
+ExecStart=/usr/bin/systemctl stop bluetooth_joy_teleop.target
