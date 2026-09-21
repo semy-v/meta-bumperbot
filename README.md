@@ -20,7 +20,7 @@ The layer currently provides:
 - **ROS 2 Control deployment**, including the custom hardware interface, differential-drive control, joint-state publication, and MPU6050 IMU integration used by the robot stack.
 - **Autonomous system startup** through a custom `bumperbot.target` and dedicated systemd units for the robot state publisher, controllers, localization, and motion-control server.
 - **Network provisioning** through NetworkManager, including Ethernet and Wi-Fi connection profiles and disabled MAC randomization for predictable connectivity.
-- **Bluetooth enablement** through the BlueZ 5 integration.
+- **On-demand Bluetooth joystick teleoperation** through BlueZ 5, a physical button, and dedicated systemd units. Bluetooth is disabled by default for power efficiency and enabled only while the joystick teleoperation target is active.
 - **Upstream ROS 2 build fixes** through `.bbappend` files and source patches required for the embedded build.
 - **A containerized Kas build workflow** so the Yocto build can be reproduced without installing the complete cross-compilation environment directly on the host.
 
@@ -79,6 +79,19 @@ The Yocto image provides the Raspberry Pi operating environment; the companion R
 ├── LICENSE
 ├── README.md
 ├── recipes-bumperbot
+│   ├── bluetooth-joy-teleop-systemd
+│   │   ├── bluetooth-joy-teleop-systemd
+│   │   │   ├── bluetooth_joy_connect.service
+│   │   │   ├── bluetooth_joy_teleop_failure.service
+│   │   │   ├── bluetooth_joy_teleop.target
+│   │   │   ├── joy_teleop_button.service
+│   │   │   └── joy_teleop.service
+│   │   ├── bluetooth-joy-teleop-systemd_1.0.bb
+│   │   └── files
+│   │       ├── joy_connect.sh
+│   │       ├── joy_disconnect.sh
+│   │       ├── joy_env_setup.sh
+│   │       └── joy_teleop_button.py
 │   ├── bumperbot-bringup
 │   │   └── bumperbot-bringup_0.1.0.bb
 │   ├── bumperbot-controller
@@ -194,6 +207,88 @@ bumperbot.target
 ```
 
 This allows the Raspberry Pi 5 to boot directly into the robot runtime without requiring a user to manually start the ROS 2 nodes over SSH.
+
+### 🎮 Bluetooth Joystick Teleoperation
+
+Bluetooth joystick teleoperation is an on-demand feature controlled by an external button. Wi-Fi remains enabled for SSH, while Bluetooth is disabled at boot to reduce power consumption.
+
+The runtime is organized around the following systemd units:
+
+```text
+bluetooth_joy_teleop.target
+    ├── Bluetooth radio enable/control
+    ├── bluetooth_joy_connect.service
+    └── joy_teleop.service
+```
+
+The physical button is handled by:
+
+```text
+joy_teleop_button.service
+        │
+        ▼
+joy_teleop_button.py
+        │
+        ▼
+systemctl start/stop bluetooth_joy_teleop.target
+```
+
+The Bluetooth joystick package provides the following units and helper scripts:
+
+| Unit / script | Purpose |
+|---|---|
+| `bluetooth_joy_teleop.target` | Top-level lifecycle target for Bluetooth joystick teleoperation |
+| `bluetooth_joy_connect.service` | Connects to and manages the Bluetooth joystick |
+| `bluetooth_joy_teleop_failure.service` | Handles teleoperation startup/connection failure |
+| `joy_teleop.service` | Runs the ROS 2 joystick teleoperation node |
+| `joy_teleop_button.service` | Monitors the physical button |
+| `joy_teleop_button.py` | GPIO button monitoring |
+| `joy_connect.sh` | Bluetooth joystick connection helper |
+| `joy_disconnect.sh` | Bluetooth joystick disconnect/cleanup helper |
+| `joy_env_setup.sh` | Prepares the joystick runtime environment |
+
+The Bluetooth radio is enabled only for teleoperation and disabled again when teleoperation stops:
+
+```text
+BOOT
+  ├── NetworkManager / Wi-Fi      ON
+  ├── SSH                         ON
+  └── Bluetooth                   OFF
+
+External button pressed
+  │
+  ▼
+bluetooth_joy_teleop.target
+  ├── Bluetooth radio             ON
+  ├── BlueZ / controller          ON
+  └── Bluetooth joystick          CONNECTED
+
+Teleoperation stopped
+  │
+  ▼
+bluetooth_joy_teleop.target
+  ├── Bluetooth joystick          DISCONNECTED
+  ├── BlueZ / controller          OFF
+  └── Bluetooth rfkill            BLOCKED
+```
+
+BlueZ is configured not to automatically power on the controller, keeping Bluetooth under explicit systemd control.
+
+For development and diagnostics:
+
+```bash
+systemctl start bluetooth_joy_teleop.target
+systemctl status bluetooth_joy_teleop.target
+
+systemctl stop bluetooth_joy_teleop.target
+
+systemctl status bluetooth.service
+systemctl status bluetooth_joy_connect.service
+systemctl status joy_teleop.service
+systemctl status joy_teleop_button.service
+rfkill list bluetooth
+bluetoothctl show
+```
 
 ---
 
@@ -335,9 +430,10 @@ Yocto Scarthgap
 + ROS 2 Jazzy
 + Raspberry Pi 5 BSP
 + BumperBot packages
-+ NetworkManager
++ NetworkManager / Wi-Fi
 + BlueZ 5
-+ systemd services
++ Bluetooth joystick teleoperation
++ button-driven systemd services
         │
         │ .wic.bz2
         ▼
